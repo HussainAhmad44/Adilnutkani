@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adil Nutkani — Physics & Math Tutor</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #132040;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-pale: #f9f0d9;
+    --chalk: #f4f1eb;
+    --white: #ffffff;
+    --text-dark: #1a1a2e;
+    --text-mid: #3d3d5c;
+    --text-muted: #7a7a9a;
+    --green-neon: #4ade80;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5vw;
+    background: rgba(10,22,40,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    letter-spacing: 0.03em;
+  }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--navy) !important;
+    padding: 0.5rem 1.3rem;
+    border-radius: 30px;
+    font-weight: 600 !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    padding: 8rem 5vw 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 10% 80%, rgba(74,222,128,0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-chalk-bg {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 50%;
+    background: linear-gradient(135deg, rgba(19,32,64,0.4) 0%, transparent 100%);
+  }
+  .hero-text { position: relative; z-index: 2; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    padding: 0.4rem 1rem;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero-badge span { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; display: inline-block; }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.6);
+    margin: 1.2rem 0 2.5rem;
+    line-height: 1.7;
+    max-width: 480px;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.25s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.25); }
+  .btn-secondary {
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* PHOTO AREA */
+  .hero-photo-wrap {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .hero-photo-ring {
+    position: relative;
+    width: clamp(300px, 38vw, 500px);
+    aspect-ratio: 1;
+  }
+  .hero-photo-ring::before {
+    content: '';
+    position: absolute; inset: -12px;
+    border: 2px solid rgba(201,168,76,0.25);
+    border-radius: 50%;
+    animation: spinRing 20s linear infinite;
+  }
+  .hero-photo-ring::after {
+    content: '';
+    position: absolute; inset: -28px;
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 50%;
+    animation: spinRing 30s linear infinite reverse;
+  }
+  @keyframes spinRing {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .hero-photo {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    border: 4px solid rgba(201,168,76,0.4);
+    position: relative; z-index: 1;
+  }
+  .photo-formula {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 1.1rem;
+    opacity: 0.7;
+    animation: floatFormula 6s ease-in-out infinite;
+  }
+  .pf1 { top: 5%; right: -10%; animation-delay: 0s; }
+  .pf2 { bottom: 15%; right: -15%; animation-delay: 2s; }
+  .pf3 { bottom: 10%; left: -12%; animation-delay: 4s; }
+  @keyframes floatFormula {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* STATS STRIP */
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+  }
+  .stat-item {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 0.4rem;
+  }
+
+  /* SECTION COMMON */
+  section { padding: 6rem 5vw; }
+  .section-eyebrow {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ABOUT */
+  .about { background: var(--navy-mid); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 5rem;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .about-img-wrap { position: relative; }
+  .about-img {
+    width: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+    aspect-ratio: 3/4;
+    object-position: top center;
+  }
+  .about-badge {
+    position: absolute;
+    bottom: -20px; right: -20px;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 1.2rem 1.4rem;
+    border-radius: 12px;
+    font-weight: 700;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+  }
+  .about-badge .big { font-size: 2rem; display: block; line-height: 1; }
+  .about-badge .small { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .about-text p {
+    color: rgba(255,255,255,0.7);
+    line-height: 1.8;
+    font-size: 1.05rem;
+    margin-bottom: 1.2rem;
+  }
+  .expertise-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.5rem 0; }
+  .tag {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold-light);
+    padding: 0.4rem 1rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  /* SUBJECTS */
+  .subjects { background: var(--navy); }
+  .subjects-header { text-align: center; max-width: 640px; margin: 0 auto 4rem; }
+  .subjects-header p { color: rgba(255,255,255,0.6); font-size: 1.05rem; }
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .subject-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .subject-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .subject-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+  .subject-card:hover::before { transform: scaleX(1); }
+  .subject-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .subject-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    margin-bottom: 0.6rem;
+    color: white;
+  }
+  .subject-card p { color: rgba(255,255,255,0.55); font-size: 0.92rem; line-height: 1.7; }
+  .subject-topics { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .topic-pill {
+    background: rgba(201,168,76,0.08);
+    color: rgba(201,168,76,0.8);
+    font-size: 0.78rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  /* PRICING */
+  .pricing { background: var(--navy-mid); }
+  .pricing-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .price-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .price-card.featured {
+    background: rgba(201,168,76,0.07);
+    border-color: rgba(201,168,76,0.35);
+    position: relative;
+  }
+  .price-card.featured::before {
+    content: 'Most Popular';
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+  }
+  .price-card:hover { transform: translateY(-4px); }
+  .price-tier { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); font-weight: 600; margin-bottom: 1rem; }
+  .price-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+  }
+  .price-amount span { font-size: 1.2rem; color: rgba(255,255,255,0.5); }
+  .price-period { color: rgba(255,255,255,0.45); font-size: 0.85rem; margin: 0.4rem 0 1.8rem; }
+  .price-features { list-style: none; text-align: left; margin-bottom: 2rem; }
+  .price-features li {
+    display: flex; align-items: center; gap: 0.7rem;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .price-features li:last-child { border: none; }
+  .check { color: var(--gold); font-weight: 700; font-size: 1rem; }
+  .price-btn {
+    display: block;
+    padding: 0.85rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.25s;
+    text-align: center;
+  }
+  .price-card.featured .price-btn {
+    background: var(--gold);
+    color: var(--navy);
+  }
+  .price-card.featured .price-btn:hover { background: var(--gold-light); }
+  .price-card:not(.featured) .price-btn {
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+  }
+  .price-card:not(.featured) .price-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--navy); }
+  .test-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .test-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 2rem;
+  }
+  .stars { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; letter-spacing: 2px; }
+  .test-text {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+  .test-author { display: flex; align-items: center; gap: 0.8rem; }
+  .test-avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.2);
+    border: 2px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 0.9rem;
+  }
+  .test-name { font-weight: 600; font-size: 0.9rem; }
+  .test-role { color: rgba(255,255,255,0.45); font-size: 0.8rem; }
+
+  /* CONTACT */
+  .contact { background: var(--navy-mid); }
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .contact-info h2 { margin-bottom: 1rem; }
+  .contact-info p { color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 2rem; }
+  .contact-method {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  .contact-icon {
+    width: 44px; height: 44px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .contact-method-text span { display: block; color: rgba(255,255,255,0.45); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .contact-method-text a, .contact-method-text strong { color: white; font-weight: 500; text-decoration: none; font-size: 0.95rem; }
+
+  /* FORM */
+  form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  input, select, textarea {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: white;
+    padding: 0.85rem 1.1rem;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.3); }
+  input:focus, select:focus, textarea:focus { border-color: rgba(201,168,76,0.5); }
+  select option { background: var(--navy); }
+  textarea { resize: vertical; min-height: 120px; }
+  .submit-btn {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 0.95rem;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.03em;
+  }
+  .submit-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .success-msg {
+    background: rgba(74,222,128,0.1);
+    border: 1px solid rgba(74,222,128,0.3);
+    color: #4ade80;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 5vw;
+    background: rgba(0,0,0,0.3);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+  }
+  footer .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  footer p { color: rgba(255,255,255,0.35); font-size: 0.85rem; }
+  .footer-links { display: flex; gap: 2rem; justify-content: center; margin: 1.2rem 0; }
+  .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.7s ease forwards; }
+  .fade-up-delay-1 { animation-delay: 0.15s; opacity: 0; animation-fill-mode: forwards; }
+  .fade-up-delay-2 { animation-delay: 0.3s; opacity: 0; animation-fill-mode: forwards; }
+  .fade-up-delay-3 { animation-delay: 0.45s; opacity: 0; animation-fill-mode: forwards; }
+
+  /* CHALKBOARD FORMULA DECORATION */
+  .chalk-deco {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    opacity: 0.06;
+    font-size: clamp(4rem, 8vw, 8rem);
+    font-weight: 700;
+    color: white;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding: 7rem 5vw 4rem; gap: 3rem; }
+    .hero-photo-wrap { order: -1; }
+    .hero-photo-ring { width: 260px; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-img { max-height: 400px; }
+    .about-badge { bottom: 10px; right: 10px; }
+    .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
+    .stats-strip { grid-template-columns: repeat(2, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .chalk-deco { display: none; }
+    .pf1, .pf2, .pf3 { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Adil Nutkani</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#subjects">Subjects</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact" class="nav-cta">Book a Class</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="chalk-deco" style="bottom: -2rem; left: 2vw;">E=mc²</div>
+
+  <div class="hero-text">
+    <div class="hero-badge fade-up"><span></span> 12+ Years of Teaching Excellence</div>
+    <h1 class="fade-up fade-up-delay-1">
+      Master Physics &<br><em>Mathematics</em><br>with Confidence
+    </h1>
+    <p class="hero-sub fade-up fade-up-delay-2">
+      Expert coaching for Grade 9 & 10 students. Adil Nutkani brings clarity, patience,
+      and deep subject mastery to every session — helping students achieve top marks.
+    </p>
+    <div class="hero-btns fade-up fade-up-delay-3">
+      <a href="#contact" class="btn-primary">📅 Book a Free Trial</a>
+      <a href="#subjects" class="btn-secondary">Explore Subjects →</a>
+    </div>
+  </div>
+
+  <div class="hero-photo-wrap">
+    <div class="hero-photo-ring">
+      <img src="ChatGPT Image May 1, 2026, 05_28_51 PM.png"
+           alt="Adil Nutkani — Physics & Math Tutor" class="hero-photo"
+           onerror="this.style.background='rgba(201,168,76,0.2)';this.removeAttribute('src')">
+      <div class="photo-formula pf1">E = mc²</div>
+      <div class="photo-formula pf2">F = ma</div>
+      <div class="photo-formula pf3">∫ dx = x + C</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num">12+</div>
+    <div class="stat-label">Years Teaching</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">500+</div>
+    <div class="stat-label">Students Taught</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">95%</div>
+    <div class="stat-label">Students Pass A+ / A</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">4.9★</div>
+    <div class="stat-label">Average Rating</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <img src="ChatGPT Image May 1, 2026, 05_28_51 PM.png"
+           alt="Adil Nutkani" class="about-img"
+           onerror="this.style.background='rgba(201,168,76,0.1)';this.removeAttribute('src')">
+      <div class="about-badge">
+        <span class="big">12+</span>
+        <span class="small">Years Experience</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-eyebrow">About the Tutor</p>
+      <h2>Turning <em style="font-style:italic;color:var(--gold)">Complex Concepts</em><br>into Clear Understanding</h2>
+      <p>
+        Adil Nutkani is a dedicated and passionate educator with over 12 years of hands-on
+        teaching experience in Physics and Mathematics. Specializing in 9th and 10th
+        grade curriculum, he has helped hundreds of students transform their academic
+        performance and build lasting confidence in STEM subjects.
+      </p>
+      <p>
+        His teaching approach combines conceptual depth with practical problem-solving
+        techniques. Whether it's classical mechanics, electricity, algebra, or geometry —
+        Adil breaks it down step by step, making even the most challenging topics
+        accessible and engaging.
+      </p>
+      <p>
+        Students appreciate his patience, clarity, and genuine investment in their success.
+        Many former students credit Adil with igniting their love for science and mathematics.
+      </p>
+      <div class="expertise-tags">
+        <span class="tag">Physics Grade 9</span>
+        <span class="tag">Physics Grade 10</span>
+        <span class="tag">Mathematics Grade 9</span>
+        <span class="tag">Mathematics Grade 10</span>
+        <span class="tag">Board Exam Prep</span>
+        <span class="tag">Problem Solving</span>
+        <span class="tag">Online Tutoring</span>
+        <span class="tag">Home Tuition</span>
+      </div>
+      <a href="#contact" class="btn-primary" style="margin-top:0.5rem; display:inline-flex;">Start Learning Today →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section class="subjects" id="subjects">
+  <div class="subjects-header">
+    <p class="section-eyebrow">Curriculum Coverage</p>
+    <h2>Subjects & <em style="font-style:italic;color:var(--gold)">Topics</em></h2>
+    <p>Comprehensive coverage of the complete Grade 9 & 10 syllabus — from foundational concepts to board exam mastery.</p>
+  </div>
+  <div class="subjects-grid">
+    <div class="subject-card">
+      <span class="subject-icon">⚛️</span>
+      <h3>Physics — Grade 9</h3>
+      <p>Build a rock-solid foundation with fundamental physics principles that set students up for long-term success.</p>
+      <div class="subject-topics">
+        <span class="topic-pill">Kinematics</span>
+        <span class="topic-pill">Forces & Newton's Laws</span>
+        <span class="topic-pill">Pressure</span>
+        <span class="topic-pill">Work & Energy</span>
+        <span class="topic-pill">Simple Machines</span>
+        <span class="topic-pill">Properties of Matter</span>
+      </div>
+    </div>
+    <div class="subject-card">
+      <span class="subject-icon">🔋</span>
+      <h3>Physics — Grade 10</h3>
+      <p>Advanced physics topics with a focus on problem-solving strategies and board exam preparation techniques.</p>
+      <div class="subject-topics">
+        <span class="topic-pill">Optics & Light</span>
+        <span class="topic-pill">Electricity</span>
+        <span class="topic-pill">Magnetism</span>
+        <span class="topic-pill">Atomic Physics</span>
+        <span class="topic-pill">Sound</span>
+        <span class="topic-pill">Nuclear Physics</span>
+      </div>
+    </div>
+    <div class="subject-card">
+      <span class="subject-icon">📐</span>
+      <h3>Mathematics — Grade 9</h3>
+      <p>Master algebraic thinking and geometric reasoning with step-by-step guidance tailored to your learning pace.</p>
+      <div class="subject-topics">
+        <span class="topic-pill">Algebra</span>
+        <span class="topic-pill">Logarithms</span>
+        <span class="topic-pill">Geometry Basics</span>
+        <span class="topic-pill">Linear Equations</span>
+        <span class="topic-pill">Sets & Matrices</span>
+        <span class="topic-pill">Statistics Intro</span>
+      </div>
+    </div>
+    <div class="subject-card">
+      <span class="subject-icon">📊</span>
+      <h3>Mathematics — Grade 10</h3>
+      <p>Develop advanced mathematical fluency with targeted exam strategies for top performance in board exams.</p>
+      <div class="subject-topics">
+        <span class="topic-pill">Quadratic Equations</span>
+        <span class="topic-pill">Trigonometry</span>
+        <span class="topic-pill">Coordinate Geometry</span>
+        <span class="topic-pill">Probability</span>
+        <span class="topic-pill">Circles & Arcs</span>
+        <span class="topic-pill">Mensuration</span>
+      </div>
+    </div>
+    <div class="subject-card">
+      <span class="subject-icon">🎯</span>
+      <h3>Board Exam Prep</h3>
+      <p>Intensive, targeted preparation sessions focused on past papers, common question patterns, and time management.</p>
+      <div class="subject-topics">
+        <span class="topic-pill">Past Papers</span>
+        <span class="topic-pill">MCQ Drills</span>
+        <span class="topic-pill">Exam Techniques</span>
+        <span class="topic-pill">Revision Plans</span>
+      </div>
+    </div>
+    <div class="subject-card">
+      <span class="subject-icon">💡</span>
+      <h3>Concept Clarity Sessions</h3>
+      <p>One-on-one doubt-clearing sessions for students who need extra help with specific topics or concepts.</p>
+      <div class="subject-topics">
+        <span class="topic-pill">Concept Review</span>
+        <span class="topic-pill">Problem Solving</span>
+        <span class="topic-pill">Q&A Format</span>
+        <span class="topic-pill">Flexible Schedule</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-header">
+    <p class="section-eyebrow">Tuition Plans</p>
+    <h2>Simple, Transparent <em style="font-style:italic;color:var(--gold)">Pricing</em></h2>
+    <p style="color:rgba(255,255,255,0.6)">Choose the plan that works for your schedule and goals.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-tier">Starter</div>
+      <div class="price-amount"><span>PKR </span>8,000</div>
+      <div class="price-period">per month </div>
+      <ul class="price-features">
+        <li><span class="check">✓</span> 4 classes per week </li>
+        <li><span class="check">✓</span> One subject only</li>
+        <li><span class="check">✓</span> Practice worksheets</li>
+        <li><span class="check">✓</span> WhatsApp support</li>
+      </ul>
+      <a href="#contact" class="price-btn">Get Started</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-tier">Standard</div>
+      <div class="price-amount"><span>PKR </span>15,000</div>
+      <div class="price-period">per month </div>
+      <ul class="price-features">
+        <li><span class="check">✓</span> 6 classes per week (60 min each)</li>
+        <li><span class="check">✓</span> Physics + Math</li>
+        <li><span class="check">✓</span> Practice worksheets & tests</li>
+        <li><span class="check">✓</span> Monthly progress report</li>
+        <li><span class="check">✓</span> Doubt-clearing chat support</li>
+      </ul>
+      <a href="#contact" class="price-btn">Book Now</a>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Intensive</div>
+      <div class="price-amount"><span>PKR </span>20,000</div>
+      <div class="price-period">per month </div>
+      <ul class="price-features">
+        <li><span class="check">✓</span> 6 classes per week (75 min each)</li>
+        <li><span class="check">✓</span> Both subjects + exam prep</li>
+        <li><span class="check">✓</span> Past paper practice</li>
+        <li><span class="check">✓</span> Priority scheduling</li>
+        <li><span class="check">✓</span> Weekly progress report</li>
+        <li><span class="check">✓</span> Parent update calls</li>
+      </ul>
+      <a href="#contact" class="price-btn">Get Started</a>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:2rem; color:rgba(255,255,255,0.4); font-size:0.85rem;">
+    ✓ Free trial class available &nbsp;|&nbsp; ✓ Online & home tuition options &nbsp;|&nbsp; ✓ Flexible scheduling
+  </p>
+</section>
+
+<!-- TESTIMONIALS
+<section class="testimonials" id="testimonials">
+  <div class="test-header">
+    <p class="section-eyebrow">Student Reviews</p>
+    <h2>What Students & Parents <em style="font-style:italic;color:var(--gold)">Say</em></h2>
+  </div>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p class="test-text">"Sir Adil completely changed how I understand physics. I used to fail my tests, but after just 3 months of his coaching I scored an A in my annual exams. He explains everything so clearly!"</p>
+      <div class="test-author">
+        <div class="test-avatar">AK</div>
+        <div>
+          <div class="test-name">Ayesha Khan</div>
+          <div class="test-role">Grade 10 Student</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p class="test-text">"As a parent, I was worried about my son's math results. Sir Adil's patient teaching style and regular feedback gave us confidence. My son now genuinely enjoys mathematics!"</p>
+      <div class="test-author">
+        <div class="test-avatar">MR</div>
+        <div>
+          <div class="test-name">Mr. Rashid Ahmed</div>
+          <div class="test-role">Parent of Grade 9 Student</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p class="test-text">"The board exam preparation sessions were incredibly focused. Sir Adil knows exactly which topics come up most and how to tackle them. I got A+ in both Physics and Math. Highly recommended!"</p>
+      <div class="test-author">
+        <div class="test-avatar">UM</div>
+        <div>
+          <div class="test-name">Usman Malik</div>
+          <div class="test-role">Grade 10 Student</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p class="test-text">"Sir Adil is not just a tutor, he's a mentor. His dedication and genuine care for every student's progress sets him apart. My daughter's confidence has grown tremendously."</p>
+      <div class="test-author">
+        <div class="test-avatar">SB</div>
+        <div>
+          <div class="test-name">Mrs. Sadia Baig</div>
+          <div class="test-role">Parent of Grade 9 Student</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p class="test-text">"I struggled with trigonometry for months before joining Sir Adil's class. In two weeks, the concept clicked completely. His analogies and real-world examples make everything make sense."</p>
+      <div class="test-author">
+        <div class="test-avatar">HF</div>
+        <div>
+          <div class="test-name">Hira Fatima</div>
+          <div class="test-role">Grade 10 Student</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p class="test-text">"Online sessions with Sir Adil are just as effective as in-person. He uses diagrams, examples, and follow-up exercises that really solidify learning. Worth every rupee!"</p>
+      <div class="test-author">
+        <div class="test-avatar">ZQ</div>
+        <div>
+          <div class="test-name">Zain Qureshi</div>
+          <div class="test-role">Grade 9 Student (Online)</div>
+        </div>
+      </div>
+    </div>
+   
+  </div> -->
+
+
+
+<section class="testimonials" id="feedback">
+  <div class="test-header">
+    <p class="section-eyebrow">Student Feedback</p>
+    <h2>Share Your <em style="font-style:italic;color:var(--gold)">Experience</em></h2>
+  </div>
+
+  <!-- FORM -->
+  <div style="max-width:600px; margin:0 auto 3rem;">
+    <form id="feedbackForm">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <select id="rating" required>
+        <option value="">Select Rating</option>
+        <option value="★★★★★">5 Stars</option>
+        <option value="★★★★☆">4 Stars</option>
+        <option value="★★★☆☆">3 Stars</option>
+        <option value="★★☆☆☆">2 Stars</option>
+        <option value="★☆☆☆☆">1 Star</option>
+      </select>
+      <textarea id="message" placeholder="Your Feedback" required></textarea>
+      <button type="submit" class="submit-btn">Submit Feedback</button>
+    </form>
+  </div>
+
+  <!-- DISPLAY FEEDBACK -->
+  <div class="test-grid" id="feedbackList"></div>
+</section>
+
+
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <p class="section-eyebrow">Get in Touch</p>
+      <h2>Book Your <em style="font-style:italic;color:var(--gold)">Free Trial</em> Class</h2>
+      <p>Ready to transform your understanding of Physics and Mathematics? Reach out and let's start your journey to academic excellence.</p>
+
+      <div class="contact-method">
+        <div class="contact-icon">📞</div>
+        <div class="contact-method-text">
+          <span>Phone / WhatsApp</span>
+          <a href="tel:+923001234567">+92 300 472 6050</a>
+        </div>
+      </div>
+      <div class="contact-method">
+        <div class="contact-icon">📧</div>
+        <div class="contact-method-text">
+          <span>Email</span>
+          <a href="mailto:adil.nutkani@gmail.com">ffaarrooqqaaddiill@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-method">
+        <div class="contact-icon">📍</div>
+        <div class="contact-method-text">
+          <span>Location</span>
+          <strong>Layyah, Pakistan</strong>
+        </div>
+      </div>
+      <div class="contact-method">
+        <div class="contact-icon">🕐</div>
+        <div class="contact-method-text">
+          <span>Available Hours</span>
+          <strong>Mon–Sat · 7:00 PM – 12:00 AM</strong>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <form id="contactForm">
+        <div class="form-row">
+          <input type="text" placeholder="Student's Name" required>
+          <input type="text" placeholder="Parent's Name">
+        </div>
+        <div class="form-row">
+          <input type="tel" placeholder="Phone / WhatsApp" required>
+          <input type="email" placeholder="Email Address">
+        </div>
+        <select required>
+          <option value="" disabled selected>Select Grade</option>
+          <option>Grade 9</option>
+          <option>Grade 10</option>
+        </select>
+        <select>
+          <option value="" disabled selected>Subject of Interest</option>
+          <option>Physics Only</option>
+          <option>Mathematics Only</option>
+          <option>Physics + Mathematics</option>
+          <option>Board Exam Preparation</option>
+        </select>
+        <select>
+          <option value="" disabled selected>Preferred Mode</option>
+          <option>Online Classes (Zoom / Google Meet)</option>
+          <option>Home Tuition (Layyah)</option>
+          <option>Both Options Work</option>
+        </select>
+        <textarea placeholder="Any specific topics you need help with, or questions you have..."></textarea>
+        <button type="submit" class="submit-btn">📅 Request Free Trial Class</button>
+        <div class="success-msg" id="successMsg">
+          ✅ Thank you! Adil will contact you within 24 hours to confirm your free trial class.
+        </div>
+      </form>
+    
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Adil Nutkani</div>
+  <p style="color:rgba(255,255,255,0.5); margin: 0.3rem 0 1rem;">Physics & Mathematics Tutor · Grade 9 & 10 · Layyah, Pakistan</p>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#subjects">Subjects</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <p>© 2026 Adil Nutkani. All rights reserved. · <em style="font-style:italic;color:rgba(201,168,76,0.6)">E = mc²</em></p>
+</footer>
+
+<!-- <script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('successMsg').style.display = 'block';
+    this.reset();
+    setTimeout(() => { document.getElementById('successMsg').style.display = 'none'; }, 6000);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.subject-card, .price-card, .test-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  }); -->
+
+
+
+
+
+
+
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+/* 🔑 FIREBASE CONFIG */
+const firebaseConfig = {
+  apiKey: "AIzaSyC2vGLE2VUoqE-kifWmu46_mSlKGWBawFo",
+  authDomain: "portfolio-83ff2.firebaseapp.com",
+  databaseURL: "https://portfolio-83ff2-default-rtdb.firebaseio.com",
+  projectId: "portfolio-83ff2",
+  storageBucket: "portfolio-83ff2.firebasestorage.app",
+  messagingSenderId: "808063174853",
+  appId: "1:808063174853:web:733d8e0f0e4acdb64148ac"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+////////////////////////////////////////////
+// 🚀 BOOKING FORM (FIXED)
+////////////////////////////////////////////
+const bookingForm = document.getElementById("contactForm");
+
+bookingForm.addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const inputs = bookingForm.querySelectorAll("input, select, textarea");
+
+  const data = {
+    studentName: inputs[0].value,
+    parentName: inputs[1].value,
+    phone: inputs[2].value,
+    email: inputs[3].value,
+    grade: inputs[4].value,
+    subject: inputs[5].value,
+    mode: inputs[6].value,
+    message: inputs[7].value,
+    time: new Date().toLocaleString()
+  };
+
+  push(ref(db, "bookings"), data)
+    .then(() => {
+      alert("✅ Booking submitted!");
+      bookingForm.reset();
+    })
+    .catch(err => alert(err.message));
+});
+
+////////////////////////////////////////////
+// ⭐ FEEDBACK FORM (NEW)
+////////////////////////////////////////////
+const feedbackForm = document.getElementById("feedbackForm");
+const feedbackList = document.getElementById("feedbackList");
+
+feedbackForm.addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const feedbackData = {
+    name: document.getElementById("name").value,
+    rating: document.getElementById("rating").value,
+    message: document.getElementById("message").value,
+    time: new Date().toLocaleString()
+  };
+
+  push(ref(db, "feedbacks"), feedbackData)
+    .then(() => {
+      alert("⭐ Feedback submitted!");
+      feedbackForm.reset();
+    })
+    .catch(err => alert(err.message));
+});
+
+////////////////////////////////////////////
+// 📥 LOAD FEEDBACK FROM FIREBASE
+////////////////////////////////////////////
+const feedbackRef = ref(db, "feedbacks");
+
+onValue(feedbackRef, (snapshot) => {
+  feedbackList.innerHTML = "";
+
+  snapshot.forEach(child => {
+    const fb = child.val();
+
+    feedbackList.innerHTML += `
+      <div class="test-card">
+        <div class="stars">${fb.rating}</div>
+        <p class="test-text">"${fb.message}"</p>
+        <div class="test-author">
+          <div class="test-avatar">${fb.name.charAt(0)}</div>
+          <div>
+            <div class="test-name">${fb.name}</div>
+            <div class="test-role">Student</div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
